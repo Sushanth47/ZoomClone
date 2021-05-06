@@ -21,7 +21,8 @@ $ npm install bootstrap
 #To install Google APIs
 $ npm install googleapis
 
-
+#To run the webapp 
+$ node server.js
 
 If any error occurs try 
 $ npm audit fix
