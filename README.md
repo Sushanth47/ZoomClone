@@ -23,4 +23,10 @@ $ npm install googleapis
 
 
 
+If any error occurs try 
+$ npm audit fix
+
+
+
+
 
