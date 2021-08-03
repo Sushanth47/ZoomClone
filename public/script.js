@@ -3,7 +3,7 @@ const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443'
+  port: '3030'
 })
 let myVideoStream;
 const myVideo = document.createElement('video')
@@ -29,6 +29,7 @@ navigator.mediaDevices.getUserMedia({
   // input value
   let text = $("input");
   // when press enter send message
+  console.log(text.val(), 'text');
   $('html').keydown(function (e) {
     if (e.which == 13 && text.val().length !== 0) {
       socket.emit('message', text.val());
