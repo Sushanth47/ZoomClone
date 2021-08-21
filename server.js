@@ -74,6 +74,6 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(process.env.PORT||3030, function () {
+server.listen(3030, function () {
   console.log(`Server is starting at port 3030`);
 })
