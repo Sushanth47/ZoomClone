@@ -1,4 +1,4 @@
-
+require('dotenv').config()
 const express = require('express')
 const app = express();
 var fs = require('fs');
@@ -15,10 +15,10 @@ const peerServer = ExpressPeerServer(server, {
 const { v4: uuidV4 } = require('uuid')
 
 app.use('/peerjs', peerServer);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }));
-app.use(bodyParser.text({ type: 'text/html' }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.raw({ type: 'application/vnd.custom-type' }));
+app.use(express.text({ type: 'text/html' }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'))
 
@@ -73,7 +73,5 @@ io.on('connection', socket => {
     })
   })
 })
-
-server.listen(3030, function () {
-  console.log(`Server is starting at port 3030`);
-})
+var port = process.env.PORT || 3031
+server.listen(port, '0.0.0.0',() => console.log(`Hello to ${port}`))
