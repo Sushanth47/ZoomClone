@@ -12,25 +12,35 @@
    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
    <script src="script.js" defer></script>
  <style>
-    body{
-       background-color:#5cdb95
-    }
     h1{
-       color:white;
-       font-weight:bold
+       /* color:white; */
+       /* font-weight:bold; */
+       font-family: tusar-deco,serif;
+    }
+    #leftHeader:hover{
+      filter: drop-shadow(0px 4px  8px rgb(238, 167, 15));
+      padding-top:5px
+    }
+    .container{
+       position:static
     }
  </style>
 </head>
+<div id="leftHeader">
+   <h4  style="justify-content: left;margin-top:20px; margin-left:17px;font-style:normal; font-family: gt-eesti-pro-display,sans-serif">Zoom Clone</h4>
+</div>
 
-<h5 style="justify-content: left;margin-top:20px; margin-left:17px; color:white">Zoom Clone</h5>
-<form target="_blank" class="form-group" style="padding-top:70px" action="/room" method="POST">
-    <center><h1>Welcome To Zoom Clone</h1><br>
+
+<div class="container">
+   <span style="padding:9px;border-radius:5px;justify-content:center; margin-left:510px; background-color:#5cdb95; font-weight:bold; border:1px solid black; color:white;" aria-readonly="true"><%=date%></span>
+   <form target="_blank" class="form-group" style="padding-top:70px" action="/room" method="POST">
+      <center><h1>Welcome To Zoom Clone</h1><br>
       <h4 >Please Enter Your Name</h4>
       <input type="text" style="width:300px" name="name" class="form-control"/>
       <br>
-        <button  type="submit" class="btn btn-success">Start Chat</button></center>
-</form>
-
+      <button type="submit" class="btn btn-success" style="background-color:#45e48d; border:1.5px solid #000000">Start Chat</button></center>
+   </form>
+</div>
 <script>
   
 </script>
