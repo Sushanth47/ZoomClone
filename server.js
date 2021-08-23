@@ -1,9 +1,11 @@
-require('dotenv').config()
+
 const express = require('express')
 const app = express();
+const mongoose = require('mongoose')
 var fs = require('fs');
 var bodyParser = require('body-parser')
-const cors = require('cors')
+const cors = require('cors');
+const moment = require('moment');
 app.use(cors());
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
@@ -14,6 +16,9 @@ const peerServer = ExpressPeerServer(server, {
 
 const { v4: uuidV4 } = require('uuid')
 
+
+
+
 app.use('/peerjs', peerServer);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -22,8 +27,13 @@ app.use(express.text({ type: 'text/html' }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'))
 
-app.get('/', async(req, res) => {
- return res.render('openingpage', { room: uuidV4() });
+app.get('/', async (req, res) => {
+  let ts = Date.now();
+  let date_ob = new Date(ts);
+  let date = date_ob.getDate();
+  let month = date_ob.getMonth();
+  let year = date_ob.getFullYear();
+ return res.render('openingpage', { room: uuidV4(), date:date+'-'+month+'-'+year });
 })
 
 app.post('/room', async (req, res) => {
@@ -73,5 +83,7 @@ io.on('connection', socket => {
     })
   })
 })
-var port = process.env.PORT || 3031
-server.listen(port, '0.0.0.0',() => console.log(`Hello to ${port}`))
+
+server.listen(3030, function () {
+  console.log(`Server is starting at port 3030`);
+})
