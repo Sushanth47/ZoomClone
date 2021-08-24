@@ -1,4 +1,4 @@
-
+require('dotenv').config()
 const express = require('express')
 const app = express();
 const mongoose = require('mongoose')
@@ -85,6 +85,6 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(3030, function () {
+server.listen(process.env.PORT, function () {
   console.log(`Server is starting at port 3030`);
 })
