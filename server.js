@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 var fs = require('fs');
 var bodyParser = require('body-parser')
 const cors = require('cors');
-const moment = require('moment');
+// const moment = require('moment');
 app.use(cors());
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
@@ -33,7 +33,8 @@ app.get('/', async (req, res) => {
   let date = date_ob.getDate();
   let month = date_ob.getMonth();
   let year = date_ob.getFullYear();
- return res.render('openingpage', { room: uuidV4(), date:date+'-'+month+'-'+year });
+  let final = date+'-'+month+'-'+year
+ return res.render('openingpage', { room: uuidV4(), date: final});
 })
 
 app.post('/room', async (req, res) => {
