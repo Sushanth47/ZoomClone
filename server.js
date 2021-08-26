@@ -16,11 +16,13 @@ const peerServer = ExpressPeerServer(server, {
 
 const { v4: uuidV4 } = require('uuid')
 
-mongoose.connect(mongodb://localhost:27017/myapp, {useNewUrlParser: true,
-         useCreateIndex: true,
-         useFindAndModify: false,
-         useUnifiedTopology: true})
-                 .then(()=>console.log('DB connection successful'))
+mongoose.connect('mongodb://localhost:27017/myapp', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
+})
+.then(()=>console.log('DB connection successful'))
 
 
 app.use('/peerjs', peerServer);
