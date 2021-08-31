@@ -1,10 +1,22 @@
 require('dotenv').config()
 const express = require('express')
 const app = express();
-const mongoose = require('mongoose')
-var fs = require('fs');
+const mongoose = require('mongoose');
+var player = require('play-sound')(opts = {})
+// Imports the Google Cloud client library
+const textToSpeech = require('@google-cloud/text-to-speech');
+const Gtts = require('gtts');
+// Import other required libraries
+const fs = require('fs');
+// const play = require('audio-play');
+// const load = require('audio-loader');
+
+// load('./sample.mp3').then(play);
+const util = require('util');
 var bodyParser = require('body-parser')
 const cors = require('cors');
+// const decode = require('audio-decode');
+// const buffer = require('audio-lena/mp3');
 // const moment = require('moment');
 app.use(cors());
 const server = require('http').Server(app)
@@ -16,13 +28,7 @@ const peerServer = ExpressPeerServer(server, {
 
 const { v4: uuidV4 } = require('uuid')
 
-mongoose.connect('mongodb://localhost:27017/myapp', {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true
-})
-.then(()=>console.log('DB connection successful'))
+
 
 
 app.use('/peerjs', peerServer);
@@ -72,6 +78,22 @@ app.post('/room', async (req, res) => {
   });
  
 })
+// const gTTS = require('gtts');
+// app.get('/hear/:text', function (req, res) {
+//   var gtts = new gTTS(req.params.text, 'en');
+// gtts.save(`/home/thinclients/user5/Desktop/newStructure/ZoomClone-master/${req.params.text}.mp3`, function (err, result) {
+//   if(err) { throw new Error(err) }
+//   console.log('Success! Open file /tmp/hello.mp3 to hear result.');
+// });
+// });
+
+
+// app.get('/hear/listenresponse/:type', async (req, res) => {
+//   player.play('./partner.mp3', function(err){
+//     if (err) throw err
+//   })
+//   return res.status(200).send('ok')
+// })
 
 
 
@@ -91,6 +113,11 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(process.env.PORT, function () {
+server.listen(process.env.PORT, '0.0.0.0',function () {
   console.log(`Server is starting at port 3030`);
 })
+
+
+
+
+// Creates a client
