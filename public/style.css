@@ -27,7 +27,7 @@
 }
 
 .main__right {
-    background-color: #242324;
+    background-color: white;
     border-left: 1px solid #3D3D42;
 }
 
@@ -68,7 +68,8 @@
 
 .main__header {
     padding-top: 5px;
-    color: #F5F5F5;
+    color: #ffffff;
+    background-color: rgba(7, 102, 226, 0.856);
     text-align: center;
 }
 
@@ -78,20 +79,22 @@
 }
 
 .messages{
-    color: white;
+    color: black;
     list-style: none;
 }
 
 .main__message_container {
     padding: 22px 12px;
     display: flex;
+    color:black
 }
 
 .main__message_container input {
     flex-grow: 1;
     background-color: transparent;
-    border: none;
-    color: #F5F5F5;
+   
+    color: #000000;
+    border:1px solid black
 }
 
 .leave_meeting {
