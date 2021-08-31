@@ -2,7 +2,6 @@
 
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid');
-const name = document.getElementById('nameOfTheUser');
 const myVideo = document.createElement('video');
 
 myVideo.muted = true;
@@ -37,11 +36,11 @@ navigator.mediaDevices.getUserMedia({
 })
 
 let text = $('#chat_message')
-
+let name = document.getElementById('nameOfTheUser');
 $('html').keydown((e) => {
     if (e.which == 13 && text.val().length != 0) {
-        console.log(text, name.innerHTML);
-        socket.emit('message', {one: text.val(), two:name.value });
+        console.log(text, document.getElementById('nameOfTheUser').innerHTML, 'text');
+        socket.emit('message', {one: text.val(), two:document.getElementById('nameOfTheUser').innerHTML });
         text.val('')
     }
 });
@@ -54,6 +53,7 @@ socket.on('createMessage', message => {
 
 peer.on('open', (ROOM_ID,id) => {
     socket.emit('join-room', ROOM_ID, id);
+    console.log(ROOM_ID, 'room')
 })
 
 const connecToNewUser = (userId, stream) => {

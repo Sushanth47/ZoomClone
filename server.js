@@ -28,7 +28,7 @@ app.use(express.raw({ type: 'application/vnd.custom-type' }));
 app.use(express.text({ type: 'text/html' }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'))
-
+var room = uuidV4();
 app.get('/', async (req, res) => {
   let ts = Date.now();
   let date_ob = new Date(ts);
@@ -36,14 +36,17 @@ app.get('/', async (req, res) => {
   let month = date_ob.getMonth();
   let year = date_ob.getFullYear();
   let final = date+'-'+month+'-'+year
- return res.render('openingpage', { room: uuidV4(), date: final});
+ return res.render('openingpage', { room: room, date: final});
 })
 
-app.post('/room', async (req, res) => {
+app.post('/:room', async (req, res) => {
   var obj = {
     table: {} 
   }
   obj.table = req.body.name
+  if(req.body.roomId){
+    res.render('room', {roomId: req.body.roomId, jsonstring:req.body.name});
+  }
   // obj.table.save()
   console.log(obj.table, 'obj.table')
   var json = JSON.stringify(obj)
@@ -58,7 +61,7 @@ app.post('/room', async (req, res) => {
       try {
         const customer = JSON.parse(jsonstring);
         // console.log(customer, 'serverfiel');
-      return res.render('room', { roomId: req.params.room, jsonstring:customer});
+      return res.render('room', { roomId: room, jsonstring:customer});
       }
       catch (error){
         console.log(error);
@@ -67,15 +70,20 @@ app.post('/room', async (req, res) => {
     }
   });
  
+});
+
+app.post('/taketoroom', async(req, res)=>{
+  console.log(req.body);
+  return res.render('room', {roomId:req.body.roomId, jsonstring:req.body.name});
 })
-const gTTS = require('gtts');
-app.get('/hear/:text', function (req, res) {
-  var gtts = new gTTS(req.params.text, 'en');
-gtts.save(`/home/thinclients/user5/Desktop/newStructure/ZoomClone-master/${req.params.text}.mp3`, function (err, result) {
-  if(err) { throw new Error(err) }
-  console.log('Success! Open file /tmp/hello.mp3 to hear result.');
-});
-});
+// const gTTS = require('gtts');
+// app.get('/hear/:text', function (req, res) {
+//   var gtts = new gTTS(req.params.text, 'en');
+// gtts.save(`/home/thinclients/user5/Desktop/newStructure/ZoomClone-master/${req.params.text}.mp3`, function (err, result) {
+//   if(err) { throw new Error(err) }
+//   console.log('Success! Open file /tmp/hello.mp3 to hear result.');
+// });
+// });
 
 
 // app.get('/hear/listenresponse/:type', async (req, res) => {

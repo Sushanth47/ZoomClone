@@ -26,15 +26,22 @@
 
 <div class="container">
    <span style="padding:9px;border-radius:5px;justify-content:center; margin-left:510px; background-color:#39dd82; font-weight:bold; border:1px solid black; color:white;font-weight:300" aria-readonly="true"><%=date%></span>
-   <form target="_blank" class="form-group" style="padding-top:70px" action="/room" method="POST">
+   <form target="_blank" class="form-group" style="padding-top:70px" action="/<%=room%>" method="POST">
       <center><h1 style="color:white">Welcome To Zoom Clone</h1><br>
       <h4 style="color:white;">Please Enter Your Name</h4><br>
       <input type="text" style="width:300px;caret-color: #b83153;" name="name" class="form-control"/>
       <br>
+      <input type="text" class="form-group" name="roomId"> 
+
       <button type="submit" class="btn btn-success" style="background-color:#21e479; font-weight:bold;border:1.5px solid #000000">Start Chat</button></center>
    </form>
 </div>
 
+<form target="_blank" class="form-group" action="/taketoroom" method="POST">
+   <input type="text" class="form-group" name="name">
+   <input type="text" class="form-group" name="roomId"> 
+   <button type="submit">Submit</button>
+</form>
 
 </body>
 <script>
