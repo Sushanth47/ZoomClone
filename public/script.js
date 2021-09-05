@@ -1,4 +1,3 @@
-//const { text } = require("express");
 
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid');
@@ -36,24 +35,24 @@ navigator.mediaDevices.getUserMedia({
 })
 
 let text = $('#chat_message')
-let name = document.getElementById('nameOfTheUser');
+// let name = document.getElementById('nameOfTheUser');
 $('html').keydown((e) => {
     if (e.which == 13 && text.val().length != 0) {
-        console.log(text, document.getElementById('nameOfTheUser').innerHTML, 'text');
-        socket.emit('message', {one: text.val(), two:document.getElementById('nameOfTheUser').innerHTML });
-        text.val('')
+        // console.log(text, document.getElementById('nameOfTheUser').innerHTML, 'text');
+        socket.emit('message',  text.val());
+        text.val('');
     }
 });
 
 socket.on('createMessage', message => {
-    $('.messages').append(`<li class="message" style="padding-left:120px;"><b>${message.two}</b><br/>${message.one}</li>`);
+    $('.messages').append(`<li class="message" style="padding-left:120px;"><b>message.two</b><br/>${message}</li>`);
     scrollToBottom()
 });
 
 
 peer.on('open', (ROOM_ID,id) => {
     socket.emit('join-room', ROOM_ID, id);
-    console.log(ROOM_ID, 'room')
+    // console.log(ROOM_ID, 'room')
 })
 
 const connecToNewUser = (userId, stream) => {
