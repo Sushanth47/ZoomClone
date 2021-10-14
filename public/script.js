@@ -1,8 +1,6 @@
-
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
-
 myVideo.muted = true;
 
 
@@ -13,6 +11,7 @@ var peer = new Peer(undefined, {
 });
 
 let myVideoStream
+//its a web API
 navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
@@ -31,30 +30,29 @@ navigator.mediaDevices.getUserMedia({
         socket.on('user-connected', (userId) => {
             connecToNewUser(userId, stream);
         })
-    
+
+        //for texting part
+    let text = $('input')
+
+    $('html').keydown((e) => {
+        if(e.which == 13 && text.val().length !== 0){
+            socket.emit('message', text.val());
+            text.val('')
+        }
+    });
+
+    socket.on('createMessage', message => {
+        $('.messages').append(`<li class="message"><b>user</b><br/>${message}</li>`);
+        scrollToBottom();
+    });
 })
 
-let text = $('#chat_message')
-// let name = document.getElementById('nameOfTheUser');
-$('html').keydown((e) => {
-    if (e.which == 13 && text.val().length != 0) {
-        // console.log(text, document.getElementById('nameOfTheUser').innerHTML, 'text');
-        socket.emit('message',  text.val());
-        text.val('');
-    }
-});
-
-socket.on('createMessage', message => {
-    $('.messages').append(`<li class="message" style="padding-left:120px;"><b>message.two</b><br/>${message}</li>`);
-    scrollToBottom()
-});
-
-
-peer.on('open', (ROOM_ID,id) => {
+//
+peer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id);
-    // console.log(ROOM_ID, 'room')
 })
 
+//call connecting
 const connecToNewUser = (userId, stream) => {
     const call = peer.call(userId, stream)
     const video = document.createElement('video')
@@ -74,12 +72,12 @@ const addVideoStream = (video, stream) => {
     })
     videoGrid.append(video);
 }
-
+//for chat part
 const scrollToBottom = () => {
     let d = $('.main__chat_window');
     d.scrollTop(d.prop("scrollHeight"));
 }
-
+//muting and unmuting call
 const muteUnmute = () => {
     const enabled = myVideoStream.getAudioTracks()[0].enabled;
     if (enabled) {
@@ -91,6 +89,8 @@ const muteUnmute = () => {
     }
 }
 
+
+//for muting part
 const setMuteButton = () => {
     const html = `
     <i class="fas fa-microphone"></i>
@@ -99,6 +99,8 @@ const setMuteButton = () => {
     document.querySelector('.main__mute_button').innerHTML = html;
 }
 
+
+//for unmuting part
 const setUnmuteButton = () => {
     const html = `
     <i class="unmute fas fa-microphone-slash"></i>
@@ -107,6 +109,8 @@ const setUnmuteButton = () => {
     document.querySelector('.main__mute_button').innerHTML = html;
 }
 
+
+//switching video on and off
 const playStop = () => {
     let enabled = myVideoStream.getVideoTracks()[0].enabled;
     if (enabled) {
@@ -118,16 +122,8 @@ const playStop = () => {
     }
 }
 
-/*async function getScreenShot() {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto('localhost:3030');
-    await page.setViewport({width: 1000, height: 500})
-    await page.screenshot({path: 'myshot.png'});
-  
-    await browser.close();
-   }*/
 
+//to stopping video
 const setStopVideo = () => {
     const html = `
     <i class="fas fa-video"></i>
@@ -136,6 +132,8 @@ const setStopVideo = () => {
     document.querySelector('.main__video_button').innerHTML = html;
 }
 
+
+//for starting video
 const setPlayVideo = () => {
     const html = `
     <i class="stop fas fa-video"></i>
