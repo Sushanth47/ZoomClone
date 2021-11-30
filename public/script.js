@@ -1,9 +1,11 @@
 const socket = io("/");
 const videoGrid = document.getElementById("video-grid");
+let theport = port.toString();
+
 const myPeer = new Peer(undefined, {
   path: "/peerjs",
   host: "/",
-  port: "3030",
+  port: theport,
 });
 let myVideoStream;
 const myVideo = document.createElement("video");
@@ -38,7 +40,7 @@ navigator.mediaDevices
       }
     });
     socket.on("createMessage", (message) => {
-      // console.log("socket.on");
+      console.log("socket.on");
       $("ul").append(`<li class="message"><b>user</b><br/>${message}</li>`);
       scrollToBottom();
     });

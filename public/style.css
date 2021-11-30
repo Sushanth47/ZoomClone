@@ -87,12 +87,14 @@
 .main__message_container {
   padding: 22px 12px;
   display: flex;
+  /* border: 1px solid black; */
 }
 
 .main__message_container input {
   flex-grow: 1;
   background-color: transparent;
-  border: none;
+  border: 1px solid black;
+  /* border-radius: 10%; */
   color: #111111;
 }
 
